@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Driving School Registration</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f3f4f6;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #aaa;
+        }
+
+        h1 {
+            text-align: center;
+            color: #374151;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #374151;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function DrivingRegistration() {
+
+    const [data, setData] = React.useState({
+        name: "",
+        age: "",
+        vehicle: "",
+        phone: ""
+    });
+
+    const [errors, setErrors] = React.useState({});
+    const [message, setMessage] = React.useState("");
+
+    function handleChange(e) {
+
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    function validate() {
+
+        let error = {};
+
+        if (data.name.trim() === "")
+            error.name = "Name is required";
+
+        if (data.age < 18)
+            error.age = "Age must be 18 or above";
+
+        if (data.vehicle === "")
+            error.vehicle = "Select vehicle type";
+
+        if (!/^[0-9]{10}$/.test(data.phone))
+            error.phone = "Enter valid phone number";
+
+        return error;
+    }
+
+    function handleSubmit(e) {
+
+        e.preventDefault();
+
+        const errors = validate();
+
+        setErrors(errors);
+        setMessage("");
+
+        if (Object.keys(errors).length === 0) {
+
+            setMessage("Driving course registration successful!");
+
+            setData({
+                name: "",
+                age: "",
+                vehicle: "",
+                phone: ""
+            });
+        }
+    }
+
+    return (
+        <div className="container">
+
+            <h1>Driving School</h1>
+
+            <form onSubmit={handleSubmit}>
+
+                <label>Student Name</label>
+                <input
+                    name="name"
+                    value={data.name}
+                    onChange={handleChange}
+                    placeholder="Enter name"
+                />
+
+                {errors.name &&
+                    <div className="error">{errors.name}</div>
+                }
+
+                <label>Age</label>
+                <input
+                    type="number"
+                    name="age"
+                    value={data.age}
+                    onChange={handleChange}
+                    placeholder="Enter age"
+                />
+
+                {errors.age &&
+                    <div className="error">{errors.age}</div>
+                }
+
+                <label>Vehicle Type</label>
+                <select
+                    name="vehicle"
+                    value={data.vehicle}
+                    onChange={handleChange}
+                >
+                    <option value="">Select Vehicle</option>
+                    <option>Car</option>
+                    <option>Motorcycle</option>
+                    <option>Heavy Vehicle</option>
+                </select>
+
+                {errors.vehicle &&
+                    <div className="error">{errors.vehicle}</div>
+                }
+
+                <label>Phone</label>
+                <input
+                    name="phone"
+                    value={data.phone}
+                    onChange={handleChange}
+                    placeholder="Enter phone"
+                />
+
+                {errors.phone &&
+                    <div className="error">{errors.phone}</div>
+                }
+
+                <button type="submit">
+                    Register
+                </button>
+
+                {message &&
+                    <div className="success">{message}</div>
+                }
+
+            </form>
+
+        </div>
+    );
+}
+
+function App() {
+    return <DrivingRegistration />;
+}
+
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+</html>

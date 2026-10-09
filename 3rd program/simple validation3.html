@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #e8f4f8;
+        }
+
+        form {
+            width: 350px;
+            margin: 50px auto;
+            padding: 25px;
+            background-color: white;
+            border: 2px solid #008cba;
+        }
+
+        h2 {
+            text-align: center;
+            color: #008cba;
+        }
+
+        input {
+            width: 95%;
+            padding: 9px;
+            margin: 8px 0;
+        }
+
+        button {
+            background-color: #008cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+        }
+    </style>
+
+    <script>
+        function validateStudent() {
+            let name = document.getElementById("name").value;
+            let roll = document.getElementById("roll").value;
+            let phone = document.getElementById("phone").value;
+
+            if (name == "") {
+                alert("Enter student name");
+                return false;
+            }
+
+            if (roll == "") {
+                alert("Enter roll number");
+                return false;
+            }
+
+            if (phone.length != 10) {
+                alert("Phone number must contain 10 digits");
+                return false;
+            }
+
+            alert("Student details submitted successfully!");
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+<form onsubmit="return validateStudent()">
+
+    <h2>Student Details</h2>
+
+    <input type="text" id="name"
+           placeholder="Student Name">
+
+    <input type="text" id="roll"
+           placeholder="Roll Number">
+
+    <input type="text" id="phone"
+           placeholder="Phone Number">
+
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>

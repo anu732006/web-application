@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Application</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #ede9fe;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #aaa;
+        }
+
+        h1 {
+            text-align: center;
+            color: #7c3aed;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function JobApplication() {
+
+    const [data, setData] = React.useState({
+        name: "",
+        email: "",
+        qualification: "",
+        position: ""
+    });
+
+    const [errors, setErrors] = React.useState({});
+    const [message, setMessage] = React.useState("");
+
+    function handleChange(e) {
+
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    function validate() {
+
+        let error = {};
+
+        if (data.name.trim() === "")
+            error.name = "Name is required";
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
+            error.email = "Enter valid email";
+
+        if (data.qualification === "")
+            error.qualification = "Select qualification";
+
+        if (data.position === "")
+            error.position = "Select job position";
+
+        return error;
+    }
+
+    function handleSubmit(e) {
+
+        e.preventDefault();
+
+        const errors = validate();
+
+        setErrors(errors);
+        setMessage("");
+
+        if (Object.keys(errors).length === 0) {
+
+            setMessage("Job application submitted successfully!");
+
+            setData({
+                name: "",
+                email: "",
+                qualification: "",
+                position: ""
+            });
+        }
+    }
+
+    return (
+        <div className="container">
+
+            <h1>Job Application</h1>
+
+            <form onSubmit={handleSubmit}>
+
+                <label>Applicant Name</label>
+                <input
+                    name="name"
+                    value={data.name}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                />
+
+                {errors.name &&
+                    <div className="error">{errors.name}</div>
+                }
+
+                <label>Email</label>
+                <input
+                    name="email"
+                    value={data.email}
+                    onChange={handleChange}
+                    placeholder="Enter email"
+                />
+
+                {errors.email &&
+                    <div className="error">{errors.email}</div>
+                }
+
+                <label>Qualification</label>
+                <select
+                    name="qualification"
+                    value={data.qualification}
+                    onChange={handleChange}
+                >
+                    <option value="">Select Qualification</option>
+                    <option>Diploma</option>
+                    <option>BSC / MSC</option>
+                    <option>ME / MTech</option>
+                    <option>MBA</option>
+                </select>
+
+                {errors.qualification &&
+                    <div className="error">
+                        {errors.qualification}
+                    </div>
+                }
+
+                <label>Position</label>
+                <select
+                    name="position"
+                    value={data.position}
+                    onChange={handleChange}
+                >
+                    <option value="">Select Position</option>
+                    <option>Web Developer</option>
+                    <option>Software Engineer</option>
+                    <option>UI Designer</option>
+                    <option>Data Analyst</option>
+                </select>
+
+                {errors.position &&
+                    <div className="error">
+                        {errors.position}
+                    </div>
+                }
+
+                <button type="submit">
+                    Apply Now
+                </button>
+
+                {message &&
+                    <div className="success">
+                        {message}
+                    </div>
+                }
+
+            </form>
+
+        </div>
+    );
+}
+
+function App() {
+    return <JobApplication />;
+}
+
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f0f8e8;
+        }
+
+        form {
+            width: 400px;
+            margin: 40px auto;
+            padding: 25px;
+            background-color: white;
+            border: 2px solid green;
+        }
+
+        h2 {
+            text-align: center;
+            color: green;
+        }
+
+        input, textarea, select {
+            width: 95%;
+            padding: 9px;
+            margin: 8px 0;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+        }
+    </style>
+
+    <script>
+        function feedbackValidation() {
+            let name = document.getElementById("name").value;
+            let rating = document.getElementById("rating").value;
+            let feedback = document.getElementById("feedback").value;
+
+            if (name == "") {
+                alert("Please enter your name");
+                return false;
+            }
+
+            if (rating == "") {
+                alert("Please select a rating");
+                return false;
+            }
+
+            if (feedback.length < 10) {
+                alert("Feedback must contain at least 10 characters");
+                return false;
+            }
+
+            alert("Thank you for your feedback!");
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+<form onsubmit="return feedbackValidation()">
+
+    <h2>Feedback Form</h2>
+
+    <input type="text" id="name"
+           placeholder="Your Name">
+
+    <select id="rating">
+        <option value="">Select Rating</option>
+        <option value="5">Excellent</option>
+        <option value="4">Very Good</option>
+        <option value="3">Good</option>
+        <option value="2">Average</option>
+        <option value="1">Poor</option>
+    </select>
+
+    <textarea id="feedback"
+              placeholder="Enter your feedback"></textarea>
+
+    <button type="submit">Submit Feedback</button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Admission Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #fff3e6;
+        }
+
+        form {
+            width: 400px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            border: 2px solid orange;
+        }
+
+        h2 {
+            text-align: center;
+            color: #cc6600;
+        }
+
+        input, select {
+            width: 95%;
+            padding: 9px;
+            margin: 7px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: orange;
+            border: none;
+            color: white;
+        }
+    </style>
+
+    <script>
+        function admissionValidation() {
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let course = document.getElementById("course").value;
+
+            if (name == "") {
+                alert("Please enter student name");
+                return false;
+            }
+
+            if (age == "") {
+                alert("Please enter age");
+                return false;
+            }
+
+            if (age < 17 || age > 30) {
+                alert("Age must be between 17 and 30");
+                return false;
+            }
+
+            if (course == "") {
+                alert("Please select a course");
+                return false;
+            }
+
+            alert("Admission form submitted successfully!");
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+<form onsubmit="return admissionValidation()">
+
+    <h2>Student Admission</h2>
+
+    <label>Student Name:</label>
+    <input type="text" id="name">
+
+    <label>Age:</label>
+    <input type="number" id="age">
+
+    <label>Course:</label>
+
+    <select id="course">
+        <option value="">Select Course</option>
+        <option value="MSC">MSC</option>
+        <option value="MSC">M.sc Computer Science</option>
+        <option value="BTech">B.Tech</option>
+    </select>
+
+    <br><br>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>
